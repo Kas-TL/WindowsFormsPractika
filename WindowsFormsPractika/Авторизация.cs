@@ -35,19 +35,19 @@ namespace WindowsFormsPractika
             password = (string)cmd.ExecuteScalar();
             cn.Close();
 
-            if ((dolgnost == null) || (password != textBox2.Text))
+            if ((MyClass.dolgnost == null) || (password != textBox2.Text))
                 MessageBox.Show("Неправильно введён логин или пароль, повторите ввод.", "Внимание!");
             else
             {
                 Пользователь f = new Пользователь();
                 f.Show();
-                if (dolgnost == "lab")
+                if (MyClass.dolgnost == "lab")
                 {
                     f.label4.Text = name;
                     f.label3.Text = "Лаборант";
                     f.pictureBox1.Image = Image.FromFile("//main/RDP/44П/зуеврн/Desktop/MDK_01_01/Practika/Forma/WindowsFormsPractika/laborant_1.jpg");
                 }
-                else if (dolgnost == "admin")
+                else if (MyClass.dolgnost == "admin")
                 {
                     f.label4.Text = name;
                     f.label3.Text = "Администратор";
@@ -56,5 +56,10 @@ namespace WindowsFormsPractika
             }
 
         }
+    }
+    class MyClass
+    {
+
+        public static string dolgnost { get; set; }
     }
 }
