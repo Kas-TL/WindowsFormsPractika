@@ -178,21 +178,32 @@
             // 
             this.comboBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "Без сортировки",
+            "Имя: по возрастанию",
+            "Имя: по убыванию"});
             this.comboBox1.Location = new System.Drawing.Point(424, 393);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(159, 32);
             this.comboBox1.TabIndex = 15;
-            this.comboBox1.Text = "фильтр";
+            this.comboBox1.Text = "Сортировка";
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // comboBox2
             // 
             this.comboBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.Items.AddRange(new object[] {
+            "Без фильтра",
+            "До 18",
+            "18 - 45",
+            "45 и более"});
             this.comboBox2.Location = new System.Drawing.Point(616, 393);
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(159, 32);
             this.comboBox2.TabIndex = 16;
-            this.comboBox2.Text = "сортировка";
+            this.comboBox2.Text = "Фильтр";
+            this.comboBox2.SelectedIndexChanged += new System.EventHandler(this.comboBox2_SelectedIndexChanged);
             // 
             // dataGridView1
             // 
@@ -210,6 +221,7 @@
             this.textBox6.Size = new System.Drawing.Size(134, 26);
             this.textBox6.TabIndex = 18;
             this.textBox6.Text = "Поиск";
+            this.textBox6.TextChanged += new System.EventHandler(this.textBox6_TextChanged);
             // 
             // Пациенты
             // 

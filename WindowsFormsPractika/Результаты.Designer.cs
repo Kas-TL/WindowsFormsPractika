@@ -58,6 +58,7 @@
             this.button1.TabIndex = 2;
             this.button1.Text = "Добавить";
             this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // button2
             // 
@@ -69,6 +70,7 @@
             this.button2.TabIndex = 3;
             this.button2.Text = "Редактировать";
             this.button2.UseVisualStyleBackColor = false;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // button3
             // 
@@ -80,6 +82,7 @@
             this.button3.TabIndex = 10;
             this.button3.Text = "Удалить";
             this.button3.UseVisualStyleBackColor = false;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // label1
             // 
@@ -179,7 +182,8 @@
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(159, 32);
             this.comboBox2.TabIndex = 21;
-            this.comboBox2.Text = "сортировка";
+            this.comboBox2.Text = "Фильтр";
+            this.comboBox2.SelectedIndexChanged += new System.EventHandler(this.comboBox2_SelectedIndexChanged);
             // 
             // comboBox1
             // 
@@ -189,7 +193,8 @@
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(159, 32);
             this.comboBox1.TabIndex = 22;
-            this.comboBox1.Text = "фильтр";
+            this.comboBox1.Text = "Сортировка";
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // textBox6
             // 
@@ -199,6 +204,7 @@
             this.textBox6.Size = new System.Drawing.Size(159, 26);
             this.textBox6.TabIndex = 23;
             this.textBox6.Text = "Поиск";
+            this.textBox6.TextChanged += new System.EventHandler(this.textBox6_TextChanged);
             // 
             // dataGridView1
             // 

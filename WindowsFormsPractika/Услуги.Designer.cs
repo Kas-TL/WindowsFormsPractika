@@ -140,21 +140,31 @@
             // 
             this.comboBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "Без сортировки",
+            "Услуга: по возрастанию",
+            "Услуга: по убыванию"});
             this.comboBox1.Location = new System.Drawing.Point(22, 299);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(159, 32);
             this.comboBox1.TabIndex = 10;
-            this.comboBox1.Text = "фильтр";
+            this.comboBox1.Text = "Сортировка";
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // comboBox2
             // 
             this.comboBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.Items.AddRange(new object[] {
+            "Без фильтра",
+            "До 200 р.",
+            "Более 200 р."});
             this.comboBox2.Location = new System.Drawing.Point(22, 351);
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(159, 32);
             this.comboBox2.TabIndex = 11;
-            this.comboBox2.Text = "сортировка";
+            this.comboBox2.Text = "Фильтр";
+            this.comboBox2.SelectedIndexChanged += new System.EventHandler(this.comboBox2_SelectedIndexChanged);
             // 
             // label4
             // 
@@ -190,6 +200,7 @@
             this.textBox6.Size = new System.Drawing.Size(159, 26);
             this.textBox6.TabIndex = 24;
             this.textBox6.Text = "Поиск";
+            this.textBox6.TextChanged += new System.EventHandler(this.textBox6_TextChanged);
             // 
             // Услуги
             // 

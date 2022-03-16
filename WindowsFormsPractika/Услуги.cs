@@ -13,7 +13,7 @@ namespace WindowsFormsPractika
 {
     public partial class Услуги : Form
     {
-        int r = 0;
+        int r = 0, s, p;
         string ConnStr = @"Data Source=sql;Initial Catalog=44П-Практика-ЗуевРН;Integrated Security=True";
         public Услуги()
         {
@@ -23,7 +23,34 @@ namespace WindowsFormsPractika
 
         private void FillService()
         {
-            string SqlText = "SELECT * FROM [Service]";
+            string SqlText = null;
+            if (p == 0)
+            {
+                if (s == 0)
+                    SqlText = "SELECT * FROM [Service]";
+                else if (s == 1)
+                    SqlText = "SELECT * FROM [Service] order by service asc";
+                else if (s == 2)
+                    SqlText = "SELECT * FROM [Service] order by service desc";
+            }
+            else if (p == 1)
+            {
+                if (s == 0)
+                    SqlText = "SELECT * FROM [Service]";
+                else if (s == 1)
+                    SqlText = "SELECT * FROM [Service] where price < 200 order by service asc";
+                else if (s == 2)
+                    SqlText = "SELECT * FROM [Service] where price < 200  order by service desc";
+            }
+            else if (p == 2)
+            {
+                if (s == 0)
+                    SqlText = "SELECT * FROM [Service]";
+                else if (s == 1)
+                    SqlText = "SELECT * FROM [Service] where price >= 200 order by service asc";
+                else if (s == 2)
+                    SqlText = "SELECT * FROM [Service] where price >= 200  order by service desc";
+            }
             SqlDataAdapter da = new SqlDataAdapter(SqlText, ConnStr);
             DataSet ds = new DataSet();
             da.Fill(ds, "[Service]");
@@ -52,6 +79,43 @@ namespace WindowsFormsPractika
             }
             else if (MyClass.dolgnost == "lab")
                 MessageBox.Show("У вас недостаточно прав для редактирования таблицы.", "Внимание!");
+        }
+
+        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboBox2.SelectedItem == "Без фильтра")
+                p = 0;
+            else if (comboBox2.SelectedItem == "До 200 р.")
+                p = 1;
+            else if (comboBox2.SelectedItem == "Более 200 р.")
+                p = 2;
+            FillService();
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboBox1.SelectedItem == "Без сортировки")
+                s = 0;
+            else if (comboBox1.SelectedItem == "Услуга: по возрастанию")
+                s = 1;
+            else if (comboBox1.SelectedItem == "Услуга: по убыванию")
+                s = 2;
+            FillService();
+        }
+
+        private void textBox6_TextChanged(object sender, EventArgs e)
+        {
+            for (int i = 0; i < dataGridView1.RowCount; i++)
+            {
+                dataGridView1.Rows[i].Selected = false;
+                for (int j = 0; j < dataGridView1.ColumnCount; j++)
+                    if (dataGridView1.Rows[i].Cells[j].Value != null)
+                        if (dataGridView1.Rows[i].Cells[j].Value.ToString().Contains(textBox6.Text))
+                        {
+                            dataGridView1.Rows[i].Selected = true;
+                            break;
+                        }
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -92,7 +156,7 @@ namespace WindowsFormsPractika
         {
             if (MyClass.dolgnost == "admin")
             {
-                int index, n;
+                int index;
                 string id;
                 index = dataGridView1.CurrentRow.Index;
                 id = Convert.ToString(dataGridView1[0, index].Value);

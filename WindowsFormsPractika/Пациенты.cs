@@ -13,7 +13,7 @@ namespace WindowsFormsPractika
 {
     public partial class Пациенты : Form
     {
-        int r = 0;
+        int r = 0, s, p;
         string ConnStr = @"Data Source=sql;Initial Catalog=44П-Практика-ЗуевРН; Integrated Security=True";
         public Пациенты()
         {
@@ -25,17 +25,91 @@ namespace WindowsFormsPractika
         {
             string SqlText = null;
             if (MyClass.dolgnost == "lab")
-                SqlText = "SELECT id, name, gender, age FROM [Users]";
+            {
+                if (p == 0)
+                {
+                    if (s == 0)
+                        SqlText = "SELECT id, name, gender, age FROM [Users]";
+                    else if (s == 1)
+                        SqlText = "SELECT id, name, gender, age FROM [Users] order by name asc";
+                    else if (s == 2)
+                        SqlText = "SELECT id, name, gender, age FROM [Users] order by name desc";
+                }
+                else if (p == 1)
+                {
+                    if (s == 0)
+                        SqlText = "SELECT id, name, gender, age FROM [Users] where age < 18";
+                    else if (s == 1)
+                        SqlText = "SELECT id, name, gender, age FROM [Users] where age < 18 order by name asc";
+                    else if (s == 2)
+                        SqlText = "SELECT id, name, gender, age FROM [Users] where age < 18 order by name desc";
+                }
+                else if (p == 2)
+                {
+                    if (s == 0)
+                        SqlText = "SELECT id, name, gender, age FROM [Users] where age >= 18 and age < 45";
+                    else if (s == 1)
+                        SqlText = "SELECT id, name, gender, age FROM [Users] where age >= 18 and age < 45 order by name asc";
+                    else if (s == 2)
+                        SqlText = "SELECT id, name, gender, age FROM [Users] where age >= 18 and age < 45 order by name desc";
+                }
+                else if (p == 3)
+                {
+                    if (s == 0)
+                        SqlText = "SELECT id, name, gender, age FROM [Users] where age >= 45";
+                    else if (s == 1)
+                        SqlText = "SELECT id, name, gender, age FROM [Users] where age >= 45 order by name asc";
+                    else if (s == 2)
+                        SqlText = "SELECT id, name, gender, age FROM [Users] where age >= 45 order by name desc";
+                }
 
+            }
             else if (MyClass.dolgnost == "admin")
-                SqlText = "SELECT * FROM [Users]";
+            {
+                if (p == 0)
+                {
+                    if (s == 0)
+                        SqlText = "SELECT * FROM [Users]";
+                    else if (s == 1)
+                        SqlText = "SELECT * FROM [Users] order by name asc";
+                    else if (s == 2)
+                        SqlText = "SELECT * FROM [Users] order by name desc";
+                }
+                else if (p == 1)
+                {
+                    if (s == 0)
+                        SqlText = "SELECT * FROM [Users] where age < 18";
+                    else if (s == 1)
+                        SqlText = "SELECT * FROM [Users] where age < 18 order by name asc";
+                    else if (s == 2)
+                        SqlText = "SELECT * FROM [Users] where age < 18 order by name desc";
+                }
+                else if (p == 2)
+                {
+                    if (s == 0)
+                        SqlText = "SELECT * FROM [Users] where age >= 18 and age < 45";
+                    else if (s == 1)
+                        SqlText = "SELECT * FROM [Users] where age >= 18 and age < 45 order by name asc";
+                    else if (s == 2)
+                        SqlText = "SELECT * FROM [Users] where age >= 18 and age < 45 order by name desc";
+                }
+                else if (p == 3)
+                {
+                    if (s == 0)
+                        SqlText = "SELECT * FROM [Users] where age >= 45";
+                    else if (s == 1)
+                        SqlText = "SELECT * FROM [Users] where age >= 45 order by name asc";
+                    else if (s == 2)
+                        SqlText = "SELECT * FROM [Users] where age >= 45 order by name desc";
+                }
+            }
             SqlDataAdapter da = new SqlDataAdapter(SqlText, ConnStr);
             DataSet ds = new DataSet();
             da.Fill(ds, "[Users]");
             dataGridView1.DataSource = ds.Tables["[Users]"].DefaultView;
         }
 
-        public void MyExecuteNonQuery(string SqlText)
+    public void MyExecuteNonQuery(string SqlText)
         {
             SqlConnection cn;
             SqlCommand cmd;
@@ -50,14 +124,57 @@ namespace WindowsFormsPractika
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (MyClass.dolgnost == "admin")
+            if ((textBox1.Text != "") || (textBox2.Text != "") || (textBox3.Text != "") || (textBox4.Text != ""))
             {
-                string SqlText = "insert into [Users] ([name],[login],[password],[gender],[age]) VALUES (\'" + textBox1.Text + "\', \'" + textBox2.Text + "\', \'" + textBox3.Text + "\', \'" + textBox4.Text + "\', " + textBox5.Text + ")";
-                MyExecuteNonQuery(SqlText);
-                FillUsers();
+                if (MyClass.dolgnost == "admin")
+                {
+                    string SqlText = "insert into [Users] ([name],[login],[password],[gender],[age]) VALUES (\'" + textBox1.Text + "\', \'" + textBox2.Text + "\', \'" + textBox3.Text + "\', \'" + textBox4.Text + "\', " + textBox5.Text + ")";
+                    MyExecuteNonQuery(SqlText);
+                    FillUsers();
+                }
+                else if (MyClass.dolgnost == "lab")
+                    MessageBox.Show("У вас недостаточно прав для редактирования таблицы.", "Внимание!");
+
             }
-            else if (MyClass.dolgnost == "lab")
-                MessageBox.Show("У вас недостаточно прав для редактирования таблицы.", "Внимание!");
+        }
+
+        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboBox2.SelectedItem == "Без фильтра")
+                p = 0;
+            else if (comboBox2.SelectedItem == "До 18")
+                p = 1;
+            else if (comboBox2.SelectedItem == "18 - 45")
+                p = 2;
+            else if (comboBox2.SelectedItem == "45 и более")
+                p = 3;
+            FillUsers();
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboBox1.SelectedItem == "Без сортировки")
+                s = 0;
+            else if (comboBox1.SelectedItem == "Имя: по возрастанию")
+                s = 1;
+            else if (comboBox1.SelectedItem == "Имя: по убыванию")
+                s = 2;
+            FillUsers();
+        }
+
+        private void textBox6_TextChanged(object sender, EventArgs e)
+        {
+            for (int i = 0; i < dataGridView1.RowCount; i++)
+            {
+                dataGridView1.Rows[i].Selected = false;
+                for (int j = 0; j < dataGridView1.ColumnCount; j++)
+                    if (dataGridView1.Rows[i].Cells[j].Value != null)
+                        if (dataGridView1.Rows[i].Cells[j].Value.ToString().Contains(textBox6.Text))
+                        {
+                            dataGridView1.Rows[i].Selected = true;
+                            break;
+                        }
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)
