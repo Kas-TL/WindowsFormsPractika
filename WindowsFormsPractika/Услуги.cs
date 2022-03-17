@@ -17,8 +17,8 @@ namespace WindowsFormsPractika
         string ConnStr = @"Data Source=sql;Initial Catalog=44П-Практика-ЗуевРН;Integrated Security=True";
         public Услуги()
         {
-            FillService();
             InitializeComponent();
+            FillService();
         }
 
         private void FillService()
@@ -139,7 +139,7 @@ namespace WindowsFormsPractika
                 }
                 else if (r == 1)
                 {
-                    string SqlText = "update [Service] set id = " + textBox1.Text + ", service = \'" + textBox2.Text + "\', price = " + textBox3.Text + " where id = " + textBox1.Text;
+                    string SqlText = "update [Services] set id = " + textBox1.Text + ", service = \'" + textBox2.Text + "\', price = " + textBox3.Text + " where id = " + textBox1.Text;
                     MyExecuteNonQuery(SqlText);
                     FillService();
                     textBox1.Text = "";

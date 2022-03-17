@@ -21,14 +21,14 @@ namespace WindowsFormsPractika
 
         private void button1_Click(object sender, EventArgs e)
         {
-            string dolgnost, login, name, password;
+            string login, name, password;
             login = textBox1.Text;
             SqlCommand cmd;
             SqlConnection cn = new SqlConnection(ConnStr);
             cn.Open();
             cmd = cn.CreateCommand();
             cmd.CommandText = "select dolgnost from [Workers] where \'" + login + "\' = login";
-            dolgnost = (string)cmd.ExecuteScalar();
+            MyClass.dolgnost = (string)cmd.ExecuteScalar();
             cmd.CommandText = "select name from [Workers] where \'" + login + "\' = login";
             name = (string)cmd.ExecuteScalar();
             cmd.CommandText = "select password from [Workers] where \'" + login + "\' = login";
@@ -45,21 +45,19 @@ namespace WindowsFormsPractika
                 {
                     f.label4.Text = name;
                     f.label3.Text = "Лаборант";
-                    f.pictureBox1.Image = Image.FromFile("//main/RDP/44П/зуеврн/Desktop/MDK_01_01/Practika/Forma/WindowsFormsPractika/laborant_1.jpg");
+                    f.pictureBox1.Image = Image.FromFile("//main/RDP/44П/зуеврн/Desktop/MDK_01_01/Practika/Forma/WindowsFormsPractika/laborant_2.png");
                 }
                 else if (MyClass.dolgnost == "admin")
                 {
                     f.label4.Text = name;
                     f.label3.Text = "Администратор";
-                    f.pictureBox1.Image = Image.FromFile("//main/RDP/44П/зуеврн/Desktop/MDK_01_01/Practika/Forma/WindowsFormsPractika/Administrator.png");
+                    f.pictureBox1.Image = Image.FromFile("//main/RDP/44П/зуеврн/Desktop/MDK_01_01/Practika/Forma/WindowsFormsPractika/laborant_2.png");
                 }
             }
-
         }
     }
     class MyClass
     {
-
         public static string dolgnost { get; set; }
     }
 }
